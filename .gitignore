@@ -1,0 +1,95 @@
+# dependencies & build
+node_modules/
+dist/
+.vite/
+*.local
+
+# logs & OS
+*.log
+.DS_Store
+Thumbs.db
+
+# editor / agent scratch
+.grok/
+.idea/
+.vscode/
+*.swp
+
+# Local stills and generated captures — not source, not in the repo
+ref_images/
+captures/
+dbg_images/
+
+# other media / binaries
+*.jpeg
+*.jpg
+*.png
+*.gif
+*.webp
+*.bmp
+*.tif
+*.tiff
+*.mp4
+*.mov
+*.webm
+*.wav
+*.mp3
+*.ogg
+*.psd
+*.zip
+*.7z
+*.tar
+*.gz
+*.wasm
+*.bin
+*.exe
+*.dll
+*.dylib
+*.so
+
+# runtime textures the game actually loads
+!assets/**/*.png
+!assets/**/*.jpg
+
+# README screenshots
+!docs/**/*.jpg
+!docs/**/*.jpeg
+!docs/**/*.png
+!docs/**/*.webp
+
+# extra generated / 3d / fonts
+*.glb
+*.gltf
+*.hdr
+*.exr
+*.ico
+*.pdf
+*.woff
+*.woff2
+*.ttf
+*.otf
+*.tgz
+coverage/
+
+# playwright
+playwright-report/
+test-results/
+test-results
+blob-report/
+
+# env / secrets
+.env
+.env.*
+*.env
+*.pem
+*.key
+*.p12
+*.pfx
+.npmrc
+
+# internal — not for public
+RESUME.md
+prompt.md
+progress.html
+progress.json
+briefs/

@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SUBWAVE</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%231c7a80'/></svg>" />
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <canvas id="c"></canvas>
+    <div id="vignette"></div>
+    <div id="helmet" aria-hidden="true">
+      <svg viewBox="0 0 1920 1080" preserveAspectRatio="none" width="100%" height="100%">
+        <defs>
+          <filter id="recess-haze" x="-6%" y="-6%" width="112%" height="112%">
+            <feGaussianBlur stdDeviation="10" />
+          </filter>
+          <filter id="recess-crease" x="-3%" y="-3%" width="106%" height="106%">
+            <feGaussianBlur stdDeviation="2.2" />
+          </filter>
+          <linearGradient id="helmet-void" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#000000" />
+            <stop offset="72%" stop-color="#000000" />
+            <stop offset="100%" stop-color="#140c08" />
+          </linearGradient>
+
+          <path
+            id="visor-hole"
+            d="M 960 4.7
+             L 1350.6 5.5
+             L 1457.4 7.5
+             L 1532.1 10.7
+             L 1591.1 14.9
+             L 1640.2 20.3
+             L 1682.2 26.9
+             L 1718.7 34.7
+             L 1750.8 43.9
+             L 1779.1 54.5
+             L 1804.1 66.6
+             L 1826 80.5
+             L 1845.1 96.3
+             L 1861.6 114.2
+             L 1875.7 134.7
+             L 1887.4 158.3
+             L 1897 185.8
+             L 1904.5 219
+             L 1909.9 261
+             L 1913.3 320.9
+             L 1914.8 540
+             L 1914.2 758.9
+             L 1911.6 819
+             L 1906.8 861.3
+             L 1899.8 894.6
+             L 1890.5 922.3
+             L 1878.7 945.9
+             L 1864.4 966.3
+             L 1847.5 984.1
+             L 1827.8 999.6
+             L 1805.3 1013.1
+             L 1779.7 1024.9
+             L 1750.8 1035.1
+             L 1718.2 1044
+             L 1681.2 1051.5
+             L 1639 1057.8
+             L 1589.8 1063
+             L 1530.8 1067.1
+             L 1456.1 1070.1
+             L 1349.6 1072.1
+             L 960 1073
+             L 570 1072.7
+             L 462.8 1071.3
+             L 387.5 1068.7
+             L 328 1064.8
+             L 278.5 1059.7
+             L 236.2 1053.3
+             L 199.5 1045.5
+             L 167.4 1036.3
+             L 139.1 1025.6
+             L 114.2 1013.4
+             L 92.3 999.6
+             L 73.1 983.8
+             L 56.5 965.9
+             L 42.4 945.4
+             L 30.5 921.9
+             L 21 894.3
+             L 13.8 861
+             L 8.8 818.9
+             L 6.1 758.8
+             L 5.5 540
+             L 7.1 321
+             L 10.8 261.2
+             L 16.5 219.3
+             L 24.3 186.3
+             L 34.2 158.9
+             L 46 135.4
+             L 60 115
+             L 76.2 96.9
+             L 94.8 80.9
+             L 116.1 66.7
+             L 140.3 54.2
+             L 168 43.2
+             L 199.6 33.6
+             L 235.8 25.5
+             L 277.7 18.7
+             L 327 13.3
+             L 386.3 9.3
+             L 461.7 6.5
+             L 569 5
+             Z"
+          />
+          <path
+            id="visor-inner"
+            d="M 960 19.7
+             L 1331.8 20.5
+             L 1437.6 22.5
+             L 1512.2 25.6
+             L 1571.3 29.9
+             L 1620.6 35.3
+             L 1662.9 41.9
+             L 1699.8 49.7
+             L 1732.3 58.8
+             L 1761 69.4
+             L 1786.3 81.5
+             L 1808.5 95.3
+             L 1827.9 110.9
+             L 1844.7 128.7
+             L 1859 149
+             L 1870.9 172.3
+             L 1880.7 199.5
+             L 1888.3 232.1
+             L 1893.8 273.2
+             L 1897.3 331.4
+             L 1898.8 536
+             L 1898.2 725.7
+             L 1895.5 779.9
+             L 1890.6 818.3
+             L 1883.5 848.7
+             L 1874 874
+             L 1862 895.7
+             L 1847.4 914.5
+             L 1830.2 930.8
+             L 1810.3 945.1
+             L 1787.4 957.7
+             L 1761.5 968.6
+             L 1732.3 978
+             L 1699.3 986.2
+             L 1662 993.2
+             L 1619.4 999
+             L 1570 1003.8
+             L 1510.9 1007.6
+             L 1436.4 1010.4
+             L 1330.8 1012.3
+             L 960 1013.1
+             L 588.7 1012.8
+             L 482.6 1011.5
+             L 407.5 1009.1
+             L 347.8 1005.5
+             L 298.1 1000.7
+             L 255.5 994.8
+             L 218.5 987.5
+             L 186 979
+             L 157.3 969.2
+             L 132 957.9
+             L 109.8 945.1
+             L 90.3 930.6
+             L 73.5 914.1
+             L 59.1 895.3
+             L 47.1 873.7
+             L 37.4 848.4
+             L 30 818.1
+             L 24.9 779.8
+             L 22.1 725.6
+             L 21.5 536
+             L 23.1 331.5
+             L 26.9 273.3
+             L 32.7 232.4
+             L 40.6 199.9
+             L 50.6 172.9
+             L 62.7 149.7
+             L 76.9 129.4
+             L 93.4 111.5
+             L 112.3 95.7
+             L 133.9 81.6
+             L 158.5 69.1
+             L 186.5 58.1
+             L 218.5 48.6
+             L 255.1 40.5
+             L 297.3 33.7
+             L 346.8 28.4
+             L 406.3 24.3
+             L 481.5 21.5
+             L 587.8 20
+             Z"
+          />
+        </defs>
+        <path
+          fill="url(#helmet-void)"
+          fill-rule="evenodd"
+          d="M0 0H1920V1080H0Z
+             M 960 4.7
+             L 1350.6 5.5
+             L 1457.4 7.5
+             L 1532.1 10.7
+             L 1591.1 14.9
+             L 1640.2 20.3
+             L 1682.2 26.9
+             L 1718.7 34.7
+             L 1750.8 43.9
+             L 1779.1 54.5
+             L 1804.1 66.6
+             L 1826 80.5
+             L 1845.1 96.3
+             L 1861.6 114.2
+             L 1875.7 134.7
+             L 1887.4 158.3
+             L 1897 185.8
+             L 1904.5 219
+             L 1909.9 261
+             L 1913.3 320.9
+             L 1914.8 540
+             L 1914.2 758.9
+             L 1911.6 819
+             L 1906.8 861.3
+             L 1899.8 894.6
+             L 1890.5 922.3
+             L 1878.7 945.9
+             L 1864.4 966.3
+             L 1847.5 984.1
+             L 1827.8 999.6
+             L 1805.3 1013.1
+             L 1779.7 1024.9
+             L 1750.8 1035.1
+             L 1718.2 1044
+             L 1681.2 1051.5
+             L 1639 1057.8
+             L 1589.8 1063
+             L 1530.8 1067.1
+             L 1456.1 1070.1
+             L 1349.6 1072.1
+             L 960 1073
+             L 570 1072.7
+             L 462.8 1071.3
+             L 387.5 1068.7
+             L 328 1064.8
+             L 278.5 1059.7
+             L 236.2 1053.3
+             L 199.5 1045.5
+             L 167.4 1036.3
+             L 139.1 1025.6
+             L 114.2 1013.4
+             L 92.3 999.6
+             L 73.1 983.8
+             L 56.5 965.9
+             L 42.4 945.4
+             L 30.5 921.9
+             L 21 894.3
+             L 13.8 861
+             L 8.8 818.9
+             L 6.1 758.8
+             L 5.5 540
+             L 7.1 321
+             L 10.8 261.2
+             L 16.5 219.3
+             L 24.3 186.3
+             L 34.2 158.9
+             L 46 135.4
+             L 60 115
+             L 76.2 96.9
+             L 94.8 80.9
+             L 116.1 66.7
+             L 140.3 54.2
+             L 168 43.2
+             L 199.6 33.6
+             L 235.8 25.5
+             L 277.7 18.7
+             L 327 13.3
+             L 386.3 9.3
+             L 461.7 6.5
+             L 569 5
+             Z"
+        />
+        <use href="#visor-hole" fill="none" stroke="#000000" stroke-width="22" opacity="0.42" filter="url(#recess-haze)" />
+        <use href="#visor-hole" fill="none" stroke="#000000" stroke-width="7" opacity="0.62" filter="url(#recess-crease)" />
+        <use href="#visor-hole" fill="none" stroke="#120c08" stroke-width="2.4" opacity="0.9" />
+      </svg>
+    </div>
+    <div id="hud">
+      <div id="compass">
+        <div id="compass-track"></div>
+        <div id="compass-needle"></div>
+      </div>
+      <div id="depth">
+        <div class="depth-read"><span id="depth-val">0</span><span class="depth-unit"> m</span></div>
+        <svg class="depth-arc" viewBox="0 0 88 20" aria-hidden="true">
+          <defs>
+            <linearGradient id="depth-grad" x1="0" y1="0" x2="1" y2="0">
+              <stop offset="0%" stop-color="#3ad4ff" stop-opacity="0.05" />
+              <stop offset="28%" stop-color="#4ef3d0" />
+              <stop offset="72%" stop-color="#c4f25a" />
+              <stop offset="100%" stop-color="#3ad4ff" stop-opacity="0.05" />
+            </linearGradient>
+          </defs>
+          <path d="M6 16 C 24 3, 64 3, 82 16" fill="none" stroke="url(#depth-grad)" stroke-width="3.4" stroke-linecap="round" />
+        </svg>
+      </div>
+      <div id="vitals">
+        <div class="pip pip-hp" title="Health">
+          <span class="pip-core">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M9.2 3.4h5.6c.7 0 1.2.5 1.2 1.2v5.2h5.2c.7 0 1.2.5 1.2 1.2v5.2c0 .7-.5 1.2-1.2 1.2h-5.2v5.2c0 .7-.5 1.2-1.2 1.2H9.2c-.7 0-1.2-.5-1.2-1.2v-5.2H2.8c-.7 0-1.2-.5-1.2-1.2V11c0-.7.5-1.2 1.2-1.2h5.2V4.6c0-.7.5-1.2 1.2-1.2z" fill="#f4fffb" />
+              <path d="M10 4.8h4v6.2h6.2v4H14v6.2h-4v-6.2H3.8v-4H10z" fill="#d8ece6" />
+            </svg>
+          </span>
+        </div>
+        <div class="pip pip-food" title="Food">
+          <span class="pip-core">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M17.4 12 22.8 6.6 20.6 12l2.2 5.4Z" fill="#f3fff8" />
+              <ellipse cx="10.4" cy="12" rx="7.8" ry="5.1" fill="#f3fff8" />
+              <path d="M8.4 7.2 11.4 3.1 14 7.4Z" fill="#f3fff8" />
+              <path d="M10.2 16.6 12.2 20.4 13.8 16.5Z" fill="#f3fff8" />
+              <ellipse cx="9" cy="10.2" rx="4.2" ry="2.1" fill="#d8ece6" opacity="0.55" />
+              <circle cx="5.6" cy="11.1" r="1.25" fill="#0b1412" />
+            </svg>
+          </span>
+        </div>
+        <div id="o2">
+          <svg viewBox="0 0 200 200" aria-hidden="true">
+            <defs>
+              <linearGradient id="o2-grad" x1="0.12" y1="0" x2="0.92" y2="1">
+                <stop offset="0%" stop-color="#8cffee" />
+                <stop offset="42%" stop-color="#3ee0b4" />
+                <stop offset="100%" stop-color="#d4f25a" />
+              </linearGradient>
+              <linearGradient id="o2-grad-low" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0%" stop-color="#ffb08a" />
+                <stop offset="100%" stop-color="#ff6a5a" />
+              </linearGradient>
+              <radialGradient id="o2-bezel" cx="38%" cy="30%" r="68%">
+                <stop offset="0%" stop-color="#2a4038" />
+                <stop offset="55%" stop-color="#121c1a" />
+                <stop offset="100%" stop-color="#050908" />
+              </radialGradient>
+              <radialGradient id="o2-body" cx="40%" cy="34%" r="62%">
+                <stop offset="0%" stop-color="#1a322c" />
+                <stop offset="68%" stop-color="#071210" />
+                <stop offset="100%" stop-color="#030706" />
+              </radialGradient>
+            </defs>
+            <circle class="o2-bezel" cx="100" cy="100" r="98" />
+            <circle class="o2-disc" cx="100" cy="100" r="66" />
+            <circle class="o2-bg" cx="100" cy="100" r="82" />
+            <circle id="o2-ring" class="o2-fg" cx="100" cy="100" r="82" />
+            <circle class="o2-inner" cx="100" cy="100" r="68" />
+          </svg>
+          <div class="o2-readout">
+            <div class="o2-label">O<sub>2</sub></div>
+            <div id="o2-val">45</div>
+          </div>
+        </div>
+        <div class="pip pip-h2o" title="Water">
+          <span class="pip-core">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2.2C12 2.2 4.6 11.2 4.6 15.4a7.4 7.4 0 0 0 14.8 0C19.4 11.2 12 2.2 12 2.2z" fill="#f2fffc" />
+              <path d="M12 5.2c0 0-5.2 6.4-5.2 9.6a5.2 5.2 0 0 0 7.4 4.7c-2.6-.6-4.4-2.8-4.4-5.6 0-2.4 2.2-5.8 2.2-8.7z" fill="#c8f4ee" opacity="0.55" />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <div id="crosshair"></div>
+      <div id="biome-toast" aria-live="polite"></div>
+      <div id="interact-hint" aria-live="polite"></div>
+      <div id="hint">click to dive · WASD · Space up · Ctrl down · Shift dash · G walkthrough · Shift-G record · [ ] or B cycle biomes · 1–8 jump · N seabase</div>
+    </div>
+    <div id="demo-fade" aria-hidden="true"></div>
+    <div id="demo-title" aria-live="polite">
+      <div id="demo-kicker"></div>
+      <div id="demo-name"></div>
+      <div id="demo-sub"></div>
+    </div>
+    <div id="demo-badge">DEMO  ·  G or ESC to exit</div>
+    <div id="demo-credit" aria-hidden="true">Grok 4.6</div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
